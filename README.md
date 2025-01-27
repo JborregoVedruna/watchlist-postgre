@@ -1,1 +1,3 @@
-# watchlist-postgre
+# Watchlist
+## Por hacer:
+- Spring Security

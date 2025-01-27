@@ -1,0 +1,166 @@
+### Insertar DNI
+POST http://localhost:8080/api/v1/DNI/
+Content-Type: application/json
+
+{
+    "number": "12345678Z",
+    "frontImg": "./front.jpg",
+    "backImg": "./back.jpg",
+    "dniOwnerId" : 1
+}
+
+### Borrar DNI por id
+DELETE http://localhost:8080/api/v1/DNI/1
+
+#############################################
+
+### Insertar pelicula
+POST http://localhost:8080/api/v1/film/
+Content-Type: application/json
+
+{
+    "filmId": 0,
+    "title": "Star Wars Episode VII",
+    "releaseDate": "2023-12-12"
+}
+
+### Obtener todas las peliculas (pagina 1 de 5 elementos por pagina)
+GET http://localhost:8080/api/v1/film/all?page=1&size=5
+
+### Obtener peliculas entre dos fechas
+GET http://localhost:8080/api/v1/film/release_date?from=1980-01-01&to=2025-01-23
+
+### Obtener pelicula por id
+GET http://localhost:8080/api/v1/film/1
+
+### Editar pelicula por id
+PUT http://localhost:8080/api/v1/film/4
+Content-Type: application/json
+
+{
+    "title": "Spaceballs",
+    "releaseDate": "1987-06-24"
+}
+
+### Editar titulo de la pelicula por id
+PATCH http://localhost:8080/api/v1/film/1
+Content-Type: application/json
+
+{
+    "title": "Phantom Menace"
+}
+
+### Borrar pelicula por id
+DELETE http://localhost:8080/api/v1/film/1
+
+### Obtener todas las peliculas vistas por un usuario
+GET http://localhost:8080/api/v1/film/user/2
+
+### Marcar pelicula como vista
+POST http://localhost:8080/api/v1/film/check/5
+Content-Type: application/json
+
+{
+    "userId": 2
+}
+
+### Desmarcar pelicula como vista
+DELETE http://localhost:8080/api/v1/film/uncheck/4
+Content-Type: application/json
+
+{
+    "userId": 2
+}
+
+#############################################
+
+### Obtener todos los usuarios
+GET http://localhost:8080/api/v1/user/all
+
+### Obtener usuario por id
+GET http://localhost:8080/api/v1/user/1
+
+### Obtener usuario por nombre
+GET http://localhost:8080/api/v1/user/profile/admin
+
+### Obtener usuarios por nombre empezando por
+GET http://localhost:8080/api/v1/user/search?name=adm
+
+#############################################
+
+### MethodArgumentTypeMismatchException
+GET http://localhost:8080/api/v1/user/a
+
+### UnexpectedTypeExceptio
+
+### IllegalArgumentException
+
+### UserNotFoundException
+GET http://localhost:8080/api/v1/user/5
+
+### FilmNotFoundException
+GET http://localhost:8080/api/v1/film/9999
+
+### EmptyResultDataAccessException
+# Padre de las dos anteriores
+
+### DataIntegrityViolationException 
+# Titulo repetido
+POST http://localhost:8080/api/v1/film/
+Content-Type: application/json
+
+{
+    "title": "Mama en apuros 2",
+    "releaseDate": "2023-12-13"
+}
+
+### HttpMessageNotReadableException
+# Mensaje invalido por la fecha
+POST http://localhost:8080/api/v1/film/
+Content-Type: application/json
+
+{
+    "filmId": 0,
+    "title": "Mama en apuros",
+    "releaseDate": "2023-12-123"
+}
+
+### ConstraintViolationException
+# No cumple el validador de la entidad
+POST http://localhost:8080/api/v1/film/
+Content-Type: application/json
+
+{
+    "filmId": 0,
+    "title": "Mama en apuritosssssssssssssssssssssssssssssss",
+    "releaseDate": "2023-12-12"
+}
+
+### MethodArgumentNotValidException
+# No cumple las validaciones del @Valid dto 
+POST http://localhost:8080/api/v1/DNI/
+Content-Type: application/json
+
+{
+    "number": "12345678A",
+    "frontImg": null,
+    "backImg": null,
+    "dniOwnerId" : 1
+}
+
+### ValidationException
+POST http://localhost:8080/api/v1/DNI/
+Content-Type: application/json
+
+{
+    "number": " 2",
+    "frontImg": "./ja.jpg",
+    "backImg": "./ja.jpg",
+    "dniOwnerId" : 1
+}
+
+### RollbackException
+# transaccion abortada
+
+### HttpRequestMethodNotSupportedException
+GET http://localhost:8080/api/v1/DNI/
